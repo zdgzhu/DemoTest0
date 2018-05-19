@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">DemoTest</string>
+
+    <string name="home_image_view_text">首页</string>
+    <string name="pond_image_view_text">鱼塘</string>
+    <string name="message_image_view_text">消息</string>
+    <string name="mine_image_view_text">我的</string>
+    <string name="home_edittext_hint">请输入宝贝关键词</string>
+    <string name="cancle">消息</string>
+    <string name="search_history">搜索历史</string>
+    <string name="cpay_keyboard_clear">清除</string>
+    <string name="search_no_title">"抱歉,没有找到与\""</string>
+    <string name="search_no_end">"\"相关宝贝</string>
+    <string name="search_tip">您可以输入宝贝代码,简称或者拼音首字母开始查找</string>
+    <string name="share_weixin">微信</string>
+    <string name="share_weixin_moment">朋友圈</string>
+    <string name="share_qq">QQ</string>
+    <string name="share_qzone">QQ空间</string>
+    <string name="account">账号:</string>
+    <string name="password">密码:</string>
+    <string name="login">登 录</string>
+    <string name="unlogin">您还未登录哦.</string>
+    <string name="login_now">马上登录</string>
+
+
+
+
+
 </resources>

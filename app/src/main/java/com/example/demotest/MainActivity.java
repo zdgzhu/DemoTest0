@@ -1,10 +1,13 @@
 package com.example.demotest;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.activity.HomeActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private String TAG = "TAG";
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init() {
         btn01 = findViewById(R.id.btn01);
+        btn01.setOnClickListener(this);
 
 
     }
@@ -28,6 +32,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn01:
+                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                break;
+
+                default:
+                    break;
+
+        }
 
     }
 
