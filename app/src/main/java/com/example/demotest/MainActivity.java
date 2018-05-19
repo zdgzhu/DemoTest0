@@ -1,4 +1,4 @@
-package com.example.administrator.demotest;
+package com.example.demotest;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
