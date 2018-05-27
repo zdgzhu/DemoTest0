@@ -23,7 +23,15 @@
         android:id="@+id/btn02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="暂停"
+        android:text="OkHttp_Call未封装"
+        />
+
+
+    <Button
+        android:id="@+id/btn03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OkHttp_Call已封装"
         />
 
 
