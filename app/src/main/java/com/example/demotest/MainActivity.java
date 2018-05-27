@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private String TAG = "TAG";
     private Button btn01;
-    private String url = "http://www.imooc.com";
+    private String url = "http://www.zhudonggang.com";
     private String url1 = "http://localhost:8080/ServletDemo/DemoServlet";
     private String url2 = "http://10.0.2.2:8080/ServletDemo/DemoServlet";
     private String url3 = " http://192.168.128.2:8080/ServletDemo/aa";
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btn02:
-                CommonOkHttpClient.sendRequest(CommonRequest.createGetRequest(url2, null), new Callback() {
+                CommonOkHttpClient.sendRequest(CommonRequest.createGetRequest(url, null), new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.d(TAG, "onFailure: "+e.getMessage());

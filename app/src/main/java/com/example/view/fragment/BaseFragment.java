@@ -20,7 +20,7 @@ public class BaseFragment extends Fragment {
 
 
 
-
+  //sd 卡权限请求
     public void requestPermissionsSDCardFrag() {
         RxPermissions rxPermissions = new RxPermissions(getActivity());
         rxPermissions.request(Constant.WRITE_READ_EXTERNAL_PERMISSION).subscribe(new Consumer<Boolean>() {
@@ -35,6 +35,7 @@ public class BaseFragment extends Fragment {
 
     }
 
+    //照相机权限请求
     public void requestPermissionsCameraFrag() {
         RxPermissions rxPermissions = new RxPermissions(getActivity());
         rxPermissions.request(Constant.WRITE_READ_EXTERNAL_PERMISSION).subscribe(new Consumer<Boolean>() {
