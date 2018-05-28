@@ -20,7 +20,7 @@ public class ImoocApplication extends Application {
         super.onCreate();
         mApplication = this;
         Logger.addLogAdapter(new AndroidLogAdapter());
-
+        CrashHandler.getInstance().init(this);
 
     }
 

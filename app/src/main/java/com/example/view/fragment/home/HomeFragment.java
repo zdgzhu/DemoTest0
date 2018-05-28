@@ -13,7 +13,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.adapter.CourseAdapter;
 import com.example.demotest.R;
+import com.example.module.recommand.BaseRecommandModel;
 import com.example.network.http.HttpConstants;
 import com.example.network.http.RequestCenter;
 import com.example.okhttp.listener.DisposeDataListener;
@@ -34,6 +36,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private TextView mSearchView;
     private ImageView mLoadingView;
 
+    /**
+     * data
+     */
+    private CourseAdapter mAdapter;
+    private BaseRecommandModel mRecommandData;
+
     public HomeFragment() {
 
     }
@@ -42,7 +50,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: 运行了");
-        requestRecommanData();
+
 
     }
 
@@ -75,26 +83,90 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        requestRecommanData();
+    }
 
     /**
      * 发送推荐产品请求
      */
 
     private void requestRecommanData() {
-        RequestCenter.postRequest(HttpConstants.ROOT_URL, null, new DisposeDataListener() {
+        Log.d(TAG, "requestRecommanData: ");
+        RequestCenter.requestRecommandData(new DisposeDataListener() {
             @Override
             public void onSuccess(Object responseObj) {
-//                String str = responseObj;
+                Log.d(TAG, "首页数据请求成功onSuccess: ");
                 Toast.makeText(mContext, "连接成功", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onSuccess: "+responseObj.toString());
+                //完成我们真正的逻辑
+                mRecommandData = (BaseRecommandModel) responseObj;
+                //更新UI
+                showSuccessView();
+
             }
 
             @Override
             public void onFailure(Object reasonObj) {
-
+                Log.d(TAG, "首页数据请求失败onFailure: "+reasonObj.toString());
                 Toast.makeText(mContext, "连接失败", Toast.LENGTH_SHORT).show();
+                showErrorView();
             }
-        },null);
+        });
+
+//        RequestCenter.postRequest(HttpConstants.ROOT_URL, null, new DisposeDataListener() {
+//            @Override
+//            public void onSuccess(Object responseObj) {
+//                Log.d(TAG, "首页数据请求成功onSuccess: "+responseObj.toString());
+//                Toast.makeText(mContext, "连接成功", Toast.LENGTH_SHORT).show();
+////                //完成我们真正的逻辑
+////                mRecommandData = (BaseRecommandModel) responseObj;
+////                //更新UI
+////                showSuccessView();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Object reasonObj) {
+//                Log.d(TAG, "首页数据请求失败onFailure: "+reasonObj.toString());
+//                Toast.makeText(mContext, "连接失败", Toast.LENGTH_SHORT).show();
+//                showErrorView();
+//            }
+//        },null);
+
+
+
+
+
+
+
+
+
+
+    }
+
+    //显示请求成功的UI
+    private void showSuccessView() {
+        if (mRecommandData.data.list != null && mRecommandData.data.list.size() > 0) {
+            mLoadingView.setVisibility(View.GONE);
+            //显示listview
+            mListView.setVisibility(View.VISIBLE);
+            //创建我们的adapter
+            Log.d(TAG, "showSuccessView: mRecommandData.size = "+ mRecommandData.data.list.size());
+            mAdapter = new CourseAdapter(mContext, mRecommandData.data.list);
+            mListView.setAdapter(mAdapter);
+
+
+        } else {
+            showErrorView();
+        }
+
+
+    }
+
+    private void showErrorView() {
+
     }
 
 

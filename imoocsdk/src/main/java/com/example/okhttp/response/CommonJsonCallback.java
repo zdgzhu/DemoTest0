@@ -3,6 +3,7 @@ package com.example.okhttp.response;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.example.adutil.GsonUtils;
 import com.example.okhttp.exception.OkHttpException;
 import com.example.okhttp.listener.DisposeDataHandle;
 import com.example.okhttp.listener.DisposeDataListener;
@@ -114,8 +115,9 @@ public class CommonJsonCallback  implements Callback{
                     } else {
                         //即，应用层需要我们将json，对象转化为了实体对象，这个是自己写的类的进行的转化，
                         //也可以用第三方库区进行转化
+
 //                        Object obj = ResponseEntityToModule.parseJsonObjectToModule(result, mClass);
-                        Object obj = null;
+                        Object obj = GsonUtils.fromJson(responseObj.toString(), mClass);
                         //标明正确的转为了实体对象
                         if (obj != null) {
                             mListener.onSuccess(obj);

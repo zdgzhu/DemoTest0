@@ -2,6 +2,7 @@ package com.example.network.http;
 
 import android.support.v4.app.NavUtils;
 
+import com.example.module.recommand.BaseRecommandModel;
 import com.example.okhttp.CommonOkHttpClient;
 import com.example.okhttp.listener.DisposeDataHandle;
 import com.example.okhttp.listener.DisposeDataListener;
@@ -19,7 +20,7 @@ public class RequestCenter {
     }
 
     public static void requestRecommandData(DisposeDataListener listener) {
-//        RequestCenter.postRequest(HttpConstants.HOME_RECOMMAND, null,listener, UpdateModel.class);
+        RequestCenter.postRequest(HttpConstants.HOME_RECOMMAND, null,listener, BaseRecommandModel.class);
 
     }
 

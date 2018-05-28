@@ -30,7 +30,8 @@ public class HttpConstants {
     /**
      * 首页产品请求接口
      */
-    public static String HOME_RECOMMAND = ROOT_URL + "/product/home_recommand.php";
+//    public static String HOME_RECOMMAND = ROOT_URL + "/product/home_recommand.php";
+    public static String HOME_RECOMMAND = ROOT_URL ;
 
     /**
      * 课程详情接口
