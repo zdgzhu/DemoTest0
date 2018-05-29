@@ -26,4 +26,18 @@
     <string name="tian_qian">天前</string>
     <string name="dian_zan">点赞</string>
 
+
+
+
+
+
+
+
+
+
+
+
+    <!--  test-->
+    <string name="toast_msg01">正在尝试跳转</string>
+
 </resources>

@@ -2,6 +2,7 @@ package com.example.adapter;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.adutil.ImageLoaderUtil;
+import com.example.adutil.Utils;
 import com.example.demotest.R;
 import com.example.module.recommand.RecommandBodyValue;
 
@@ -19,7 +22,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class CourseAdapter  extends BaseAdapter{
+public class CourseAdapter extends BaseAdapter {
 
     private static final int CARD_COUNT = 4; //表示listview的item 有四种类型
     private static final int VIDEO_TYPE = 0X00; //表示视频类型
@@ -79,11 +82,12 @@ public class CourseAdapter  extends BaseAdapter{
         if (convertView == null) {
             switch (type) {
                 case VIDEO_TYPE:
-                    convertView = mInflate.inflate(R.layout.item_product_card_single_layout, parent, false);
-
+                    convertView = mInflate.inflate(R.layout.item_empty_video, parent, false);
+                    Log.d("TAG", "getView: VIDEO_TYPE = "+type);
                     break;
 
                 case CARD_SINGLE_PIC:
+                    Log.d("TAG", "getView: CARD_SINGLE_PIC = "+type);
                     mViewHolder = new ViewHolder();
                     convertView = mInflate.inflate(R.layout.item_product_card_single_layout, parent, false);
                     mViewHolder.mLogoView = (CircleImageView) convertView.findViewById(R.id.item_logo_view);
@@ -97,20 +101,29 @@ public class CourseAdapter  extends BaseAdapter{
                     break;
 
                 case CARD_MULTI_PIC:
-                    convertView = mInflate.inflate(R.layout.item_product_card_single_layout, parent, false);
+                    Log.d("TAG", "getView: CARD_MULTI_PIC = "+type);
+                    mViewHolder = new ViewHolder();
+                    convertView = mInflate.inflate(R.layout.item_product_card_multi_layout, parent, false);
+                    mViewHolder.mLogoView = (CircleImageView) convertView.findViewById(R.id.item_logo_view);
+                    mViewHolder.mTitleView = (TextView) convertView.findViewById(R.id.item_title_view);
+                    mViewHolder.mInfoView = (TextView) convertView.findViewById(R.id.item_info_view);
+                    mViewHolder.mFooterView = (TextView) convertView.findViewById(R.id.item_footer_view);
+                    mViewHolder.mPriceView = (TextView) convertView.findViewById(R.id.item_price_view);
+                    mViewHolder.mFromView = (TextView) convertView.findViewById(R.id.item_from_view);
+                    mViewHolder.mZanView = (TextView) convertView.findViewById(R.id.item_zan_view);
+                    mViewHolder.mProductLayout = (LinearLayout) convertView.findViewById(R.id.product_photo_layout);
 
                     break;
 
                 case CARD_PAGER_PIC:
-                    convertView = mInflate.inflate(R.layout.item_product_card_single_layout, parent, false);
-
+                    convertView = mInflate.inflate(R.layout.item_empty_pager, parent, false);
+                    Log.d("TAG", "getView: CARD_PAGER_PIC = "+type);
                     break;
 
                 default:
                     break;
 
             }
-
 
 
         } else {
@@ -124,8 +137,8 @@ public class CourseAdapter  extends BaseAdapter{
 
                 break;
 
-            case CARD_SINGLE_PIC:
-                mImagerLoader.displayImage(mViewHolder.mLogoView,value.logo);
+            case CARD_SINGLE_PIC: //显示单个图片
+                mImagerLoader.displayImage(mViewHolder.mLogoView, value.logo);
                 mViewHolder.mTitleView.setText(value.title);
                 mViewHolder.mInfoView.setText(value.info.concat(mContext.getString(R.string.tian_qian)));
                 mViewHolder.mFooterView.setText(value.text);
@@ -136,7 +149,28 @@ public class CourseAdapter  extends BaseAdapter{
                 mImagerLoader.displayImage(mViewHolder.mProductView, value.url.get(0));
                 break;
 
-            case CARD_MULTI_PIC:
+            case CARD_MULTI_PIC:// 显示多个图片
+                mImagerLoader.displayImage(mViewHolder.mLogoView, value.logo);
+                mViewHolder.mTitleView.setText(value.title);
+                mViewHolder.mInfoView.setText(value.info.concat(mContext.getString(R.string.tian_qian)));
+                mViewHolder.mFooterView.setText(value.text);
+                mViewHolder.mPriceView.setText(value.price);
+                mViewHolder.mFromView.setText(value.from);
+                mViewHolder.mZanView.setText((mContext.getString(R.string.dian_zan).concat(value.zan)));
+                mViewHolder.mProductLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(mContext, mContext.getString(R.string.toast_msg01), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                //移除所有的imageview
+                mViewHolder.mProductLayout.removeAllViews();
+                //动态添加多个imageview
+                for (String url : value.url) {
+                    mViewHolder.mProductLayout.addView(createImageView(url));
+                }
+
 
                 break;
 
@@ -150,18 +184,27 @@ public class CourseAdapter  extends BaseAdapter{
         }
 
 
-
-
-
-
-
-
         return convertView;
     }
 
 
+    //动态添加imageview
+    private ImageView createImageView(String url) {
+        ImageView photoView = new ImageView(mContext);
+        /**LayoutParams相当于一个Layout的信息包，它封装了Layout的位置、高、宽等信息。
+         * 这里为什么要用linearlayout.LayoutParams 而不用其他布局的LayoutParams ,这个因为这个LayoutParams 需要与父容器ViewGroup保持一致
+         */
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Utils.px2dip(mContext, 100),
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        params.leftMargin = Utils.px2dip(mContext, 5);
+        photoView.setLayoutParams(params);
+        mImagerLoader.displayImage(photoView, url);
+        return photoView;
 
-    private static class ViewHolder{
+    }
+
+
+    private static class ViewHolder {
         //所有Card的共同属性
         private CircleImageView mLogoView;
         private TextView mTitleView;
@@ -182,7 +225,6 @@ public class CourseAdapter  extends BaseAdapter{
         //Card ViewPager特有属性
         private ViewPager mViewPager;
     }
-
 
 
 }
