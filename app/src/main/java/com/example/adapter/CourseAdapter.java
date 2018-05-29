@@ -17,6 +17,7 @@ import com.example.adutil.ImageLoaderUtil;
 import com.example.adutil.Utils;
 import com.example.demotest.R;
 import com.example.module.recommand.RecommandBodyValue;
+import com.example.util.Util;
 
 import java.util.ArrayList;
 
@@ -116,16 +117,28 @@ public class CourseAdapter extends BaseAdapter {
                     break;
 
                 case CARD_PAGER_PIC:
-                    convertView = mInflate.inflate(R.layout.item_empty_pager, parent, false);
-                    Log.d("TAG", "getView: CARD_PAGER_PIC = "+type);
+                    mViewHolder = new ViewHolder();
+                    convertView = mInflate.inflate(R.layout.item_product_card_pager_layout, parent, false);
+                    mViewHolder.mViewPager = (ViewPager) convertView.findViewById(R.id.pager);
+                    //将二维数组拆成一维数组
+                    //add data 将二维数组分拆成一维数组
+                    ArrayList<RecommandBodyValue> recommandList = Util.handleData(value);
+                    //设置间隔
+                    mViewHolder.mViewPager.setPageMargin(Utils.px2dip(mContext, 12));
+                    //为我们的ViewPager 填充数据
+                    mViewHolder.mViewPager.setAdapter(new HotSalePagerAdapter(mContext, recommandList));
+                    //上面的代码只是单向循环，添加下面的代码可是使其双向循环
+                    //从一开始就处于比较中间的位置(500)的位置，这样就能双向循环，
+                    mViewHolder.mViewPager.setCurrentItem(recommandList.size() * 100);
+
+
                     break;
 
                 default:
                     break;
 
             }
-
-
+            convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
