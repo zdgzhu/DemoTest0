@@ -130,15 +130,13 @@ public class CourseAdapter extends BaseAdapter {
                     //上面的代码只是单向循环，添加下面的代码可是使其双向循环
                     //从一开始就处于比较中间的位置(500)的位置，这样就能双向循环，
                     mViewHolder.mViewPager.setCurrentItem(recommandList.size() * 100);
-
-
                     break;
-
                 default:
                     break;
-
             }
+
             convertView.setTag(mViewHolder);
+
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }

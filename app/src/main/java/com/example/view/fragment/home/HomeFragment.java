@@ -20,6 +20,7 @@ import com.example.network.http.HttpConstants;
 import com.example.network.http.RequestCenter;
 import com.example.okhttp.listener.DisposeDataListener;
 import com.example.view.fragment.BaseFragment;
+import com.example.view.home.HomeHeaderLayout;
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
@@ -152,6 +153,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             mLoadingView.setVisibility(View.GONE);
             //显示listview
             mListView.setVisibility(View.VISIBLE);
+            //为listview 添加header
+            mListView.addHeaderView(new HomeHeaderLayout(mContext,mRecommandData.data.head));
+
             //创建我们的adapter
             Log.d(TAG, "showSuccessView: mRecommandData.size = "+ mRecommandData.data.list.size());
             mAdapter = new CourseAdapter(mContext, mRecommandData.data.list);
