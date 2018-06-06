@@ -29,6 +29,17 @@ public class Utils {
         return (int) (dpValue/scale);
     }
 
+    public static boolean containString(String source, String destation) {
+        if (source.equals("") || destation.equals("")) {
+            return false;
+        }
+        if (source.contains(destation)) {
+            return true;
+        }
+        return false;
+
+    }
+
 
 
 

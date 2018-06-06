@@ -489,7 +489,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
      *  如果对UI 的点击没有具体监测的话，可以不回调
      */
 
-    private interface ADVideoPlayerListener{
+    public interface ADVideoPlayerListener{
 
         public void onBufferUpdate(int time);
 
