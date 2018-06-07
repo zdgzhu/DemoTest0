@@ -1,6 +1,5 @@
 package com.example.core.video;
 
-import android.arch.lifecycle.ReportFragment;
 import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -8,7 +7,7 @@ import android.widget.RelativeLayout;
 import com.example.constant.SDKConstant;
 import com.example.module.AdValue;
 import com.example.widget.CustomVideoView;
-import com.report.ReportManager;
+import com.example.report.ReportManager;
 
 /**
  * 视频业务逻辑
@@ -78,7 +77,7 @@ public class VideoAdSlot implements CustomVideoView.ADVideoPlayerListener {
             if (isAuto) {
                 //发自动暂停的监测
                 if (!isRealPause() && isPlaying()) {
-                    ReportManager.pauseVideoReport(mXAdInstance.event.pause.content,getPosition);
+                    ReportManager.pauseVideoReport(mXAdInstance.event.pause.content,getPosition());
                 }
 
             }

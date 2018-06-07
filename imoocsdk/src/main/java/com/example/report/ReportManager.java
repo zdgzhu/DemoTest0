@@ -1,4 +1,4 @@
-package com.report;
+package com.example.report;
 
 import com.example.adutil.Utils;
 import com.example.module.monitor.Monitor;
