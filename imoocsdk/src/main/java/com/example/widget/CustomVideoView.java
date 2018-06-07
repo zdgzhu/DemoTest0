@@ -175,7 +175,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
     }
 
     //view 的一些显示
-    private void isShowFullBtn(boolean isShow) {
+    public void isShowFullBtn(boolean isShow) {
         mFullBtn.setImageResource(isShow ? R.drawable.xadsdk_ad_mini : R.drawable.xadsdk_ad_mini_null);
         mFullBtn.setVisibility(isShow ? View.VISIBLE : View.VISIBLE);
     }
@@ -440,7 +440,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
     }
 
     //全屏不显示暂停状态,后续可以整合，不必单独出一个方法
-    private void pauseForFullScreen() {
+    public void pauseForFullScreen() {
         if (this.playerState != STATE_PLAYING) {
             return;
         }
@@ -477,7 +477,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
      * 由于我们要从小屏跳到全屏播放的功能，所以需要这个方法，而跳转过去之后，是需要续播的，
      * 比如在小屏播放到了第5秒，跳转到大屏，我们就应该从第五秒开始继续播放
      */
-    private void seekAndResume(int postion) {
+    public void seekAndResume(int postion) {
         if (mediaPlayer != null) {
             showPauseView(true);
             entryResumeState();
@@ -528,7 +528,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
      * 恢复视频播放,包括从就绪状态进入播放状态,以及从pause状态进入进入播放状态
      * 一到resume就说明我们的视频 是处于播放中
      */
-    private void resume() {
+    public void resume() {
         //如果当前的状态不是暂停状态，就返回
         if (this.playerState != STATE_PAUSING) {
             return;
