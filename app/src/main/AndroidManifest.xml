@@ -7,10 +7,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
-
-
-
     <application
         android:name="com.example.application.ImoocApplication"
         android:allowBackup="true"
@@ -26,7 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.activity.HomeActivity"></activity>
+        <activity android:name="com.example.activity.HomeActivity" />
+        <activity android:name="com.example.activity.SettingActivity" />
+        <activity android:name="com.example.activity.LoginActivity"></activity>
     </application>
 
 </manifest>

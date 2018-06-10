@@ -25,16 +25,47 @@
     <string name="video">视频</string>
     <string name="tian_qian">天前</string>
     <string name="dian_zan">点赞</string>
+
+    <string name="auto_player_always">3G/4G和Wifi</string>
+    <string name="auto_player_only_wifi">仅Wifi</string>
+    <string name="auto_player_never">关闭</string>
+    <string name="video_setting">视频播放环境条件</string>
+    <string name="share_imooc">分享imooc给朋友</string>
+
+    <string name="my_qrcode">我的二维码</string>
+    <string name="please_wait">加载中...</string>
+    <string name="personal_info">的个人主页</string>
+    <string name="message">消息</string>
+    <string name="unread_message">留言</string>
+    <string name="unread_message_info">还没有收到留言.</string>
+    <string name="zan_message">收到的赞</string>
+    <string name="zan_message_info">还没有收到的赞.</string>
+    <string name="imooc_message">慕课网</string>
+    <string name="imooc_message_info">再不学习慕女神不喜欢你了.</string>
+    <string name="update_info">版本更新</string>
+    <string name="jpush_message_type">消息类型:</string>
+    <string name="jpush_message_content">消息内容:</string>
+    <string name="jpush_message_title">推送消息</string>
+    <string name="xitong_message">系统消息</string>
+    <string name="receive_zan_message">收到的赞</string>
+    <string name="liuyan_message">留言</string>
+    <string name="chart_with_me">与我交谈</string>
+    <string name="scan_detail">查看详情</string>
+    <string name="download">下载</string>
+    <string name="download_success">下载成功</string>
+    <string name="download_failed">下载失败</string>
+    <string name="imooc">慕课网</string>
+    <string name="imooc_site">http://www.imooc.com</string>
     <string name="today_zuixing">------------&#062;&#062;今日最新&#060;&#060;------------</string>
-
-
-
-
-
-
-
-
-
+    <string name="course_detail">课程详情</string>
+    <string name="danbao_trade">担保交易</string>
+    <string name="last_week_visti">最近一周课程查看人数:</string>
+    <string name="owner">主人</string>
+    <string name="guess_you_like">猜你喜欢</string>
+    <string name="send">发送</string>
+    <string name="input_comment">请输入留言</string>
+    <string name="comment_hint_head">回复@</string>
+    <string name="comment_hint_footer">:</string>
 
 
     <!--  test-->

@@ -20,7 +20,7 @@ public class HttpConstants {
     /**
      * 登陆接口
      */
-    public static String LOGIN = ROOT_URL + "/user/login_phone.php";
+    public static String LOGIN = ROOT_URL + "/User/login_phone.php";
 
     /**
      * 检查更新接口
