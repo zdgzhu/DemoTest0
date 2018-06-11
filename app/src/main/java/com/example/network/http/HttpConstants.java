@@ -5,7 +5,8 @@ package com.example.network.http;
  */
 public class HttpConstants {
 
-    public static final String ROOT_URL = "http://zhudonggang.com/api";
+//    public static final String ROOT_URL = "http://zhudonggang.com/api";
+    public static final String ROOT_URL = "http://imooc.com/api";
 
     /**
      * 请求本地产品列表
@@ -38,6 +39,11 @@ public class HttpConstants {
      */
     public static String COURSE_DETAIL = ROOT_URL + "/product/course_detail.php";
 
+
+    //登录时用的ip
+    public static String LOGIN_IP = "192.168.2.10";
+    public static int LOGIN_PORT = 9124;
+    public static int READBUFFER_SIZE = 10240;
 
 
 

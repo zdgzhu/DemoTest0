@@ -5,7 +5,7 @@ public class UserContent {
 
     public String photoUrl;
 
-    public String name;
+    public String name; //用户姓名
 
     public String tick;
 
