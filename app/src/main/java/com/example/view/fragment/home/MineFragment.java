@@ -16,11 +16,20 @@ import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.activity.LoginActivity;
+import com.example.activity.SettingActivity;
 import com.example.adutil.ImageLoaderUtil;
+import com.example.adutil.Utils;
 import com.example.demotest.R;
 import com.example.manager.UserManager;
+import com.example.module.update.UpdateModel;
+import com.example.network.http.RequestCenter;
+import com.example.okhttp.listener.DisposeDataListener;
+import com.example.service.update.UpdateService;
+import com.example.util.Util;
+import com.example.view.CommonDialog;
 import com.example.view.fragment.BaseFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -102,7 +111,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         //根据用户信息更新我们的fragment
         if (UserManager.getInstance().hasLogined()) {
             if (mLoginedLayout.getVisibility() == View.GONE) {
-                mLoginedLayout.setVisibility(View.GONE);
+                mLoginLayout.setVisibility(View.GONE);
                 mLoginedLayout.setVisibility(View.VISIBLE);
                 mUserNameView.setText(UserManager.getInstance().getUser().data.name);
                 mTickView.setText(UserManager.getInstance().getUser().data.tick);
@@ -139,11 +148,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
 
                 break;
 
-            case R.id.video_setting_view:
+            case R.id.video_setting_view: //播放设置
+                mContext.startActivity(new Intent(mContext, SettingActivity.class));
 
                 break;
 
             case R.id.update_view: //版本更新
+
+                  requestPermissionsSDCardFrag();
 
                 break;
         }
@@ -154,7 +166,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
 
     @Override
     public void doSDCardPermissionfrag() {
-        super.doSDCardPermissionfrag();
+        //检查版本更新
+        checkVersion();
     }
 
 
@@ -174,6 +187,39 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
 
 
     }
+
+    //发送版本检查更新的请求
+    private void  checkVersion() {
+        RequestCenter.checkVersion(new DisposeDataListener() {
+            @Override
+            public void onSuccess(Object responseObj) {
+                final UpdateModel updateModel = (UpdateModel) responseObj;
+                if (Util.getVersionCode(mContext) < updateModel.data.currentVersion) {
+                    //说明有新版本，开始下载吧
+                    CommonDialog dialog = new CommonDialog(mContext, getString(R.string.update_new_version), getString(R.string.update_title),
+                            getString(R.string.update_install), getString(R.string.cancle), new CommonDialog.DialogClickListener() {
+                        @Override
+                        public void onDialogClick() {
+                            Intent intent = new Intent(mContext, UpdateService.class);
+                            mContext.startService(intent);
+                        }
+                    });
+                    dialog.show();
+                } else {
+                    Toast.makeText(mContext, getString(R.string.no_new_version_msg), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Object reasonObj) {
+
+            }
+        });
+
+    }
+
 
     //注册广播
     private void registerBroadcast() {
@@ -204,7 +250,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                     mUserNameView.setText(UserManager.getInstance().getUser().data.name);
                     mTickView.setText(UserManager.getInstance().getUser().data.tick);
                     ImageLoaderUtil.getInstance(mContext).displayImage(mPhotoView, UserManager.getInstance().getUser().data.photoUrl);
-                }
+            }
             }
         }
 

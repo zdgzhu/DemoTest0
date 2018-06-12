@@ -42,6 +42,7 @@ public class HttpConstants {
 
     //登录时用的ip
     public static String LOGIN_IP = "192.168.2.10";
+    //端口号 ，要求客户端与服务器端一致
     public static int LOGIN_PORT = 9124;
     public static int READBUFFER_SIZE = 10240;
 

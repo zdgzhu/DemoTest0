@@ -6,7 +6,7 @@
     <string name="message_image_view_text">消息</string>
     <string name="mine_image_view_text">我的</string>
     <string name="home_edittext_hint">请输入宝贝关键词</string>
-    <string name="cancle">消息</string>
+    <string name="cancle">取消</string>
     <string name="search_history">搜索历史</string>
     <string name="cpay_keyboard_clear">清除</string>
     <string name="search_no_title">"抱歉,没有找到与\""</string>
@@ -66,6 +66,22 @@
     <string name="input_comment">请输入留言</string>
     <string name="comment_hint_head">回复@</string>
     <string name="comment_hint_footer">:</string>
+
+
+    <!--update模块-->
+    <string name="update_title">快下载更新体验一下吧</string>
+    <string name="update_new_version">您有新版本</string>
+    <string name="update_install">安装</string>
+    <string name="update_download_failed">下载失败</string>
+    <string name="update_download_failed_msg">下载失败，请检查网络连接或 SD卡存储空间</string>
+    <string name="update_download_start">开始下载</string>
+    <string name="update_download_processing">正在下载</string>
+    <string name="update_download_finish">下载完成</string>
+    <string name="update_download_tip">提示</string>
+    <string name="no_new_version_title">已是最新版</string>
+    <string name="no_new_version_msg">您当前已经是最新版本，无需更新。</string>
+    <string name="confirm">确定</string>
+
 
 
     <!--  test-->

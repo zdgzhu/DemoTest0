@@ -3,6 +3,7 @@ package com.example.network.http;
 import android.support.v4.app.NavUtils;
 
 import com.example.module.recommand.BaseRecommandModel;
+import com.example.module.update.UpdateModel;
 import com.example.module.user.User;
 import com.example.okhttp.CommonOkHttpClient;
 import com.example.okhttp.HttpConstant;
@@ -34,6 +35,13 @@ public class RequestCenter {
         RequestCenter.getRequest(HttpConstants.LOGIN, params, listener, User.class);
     }
 
+    /**
+     * 应用版本号请求更新
+     */
+    public static void checkVersion(DisposeDataListener listener) {
+        RequestCenter.getRequest(HttpConstants.CHECK_UPDATE,null,listener,UpdateModel.class);
+
+    }
 
 
 

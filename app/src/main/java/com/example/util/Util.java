@@ -1,5 +1,8 @@
 package com.example.util;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 
 import com.example.module.recommand.RecommandBodyValue;
@@ -7,6 +10,36 @@ import com.example.module.recommand.RecommandBodyValue;
 import java.util.ArrayList;
 
 public class Util {
+
+
+
+    public static int getVersionCode(Context context) {
+        int versionCode = 1;
+
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            versionCode = pi.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionCode;
+    }
+
+
+    public static String getVersionName(Context context) {
+        String versionName = "1.0.0";
+
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            versionName = pi.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionName;
+
+    }
 
 
 
@@ -40,6 +73,8 @@ public class Util {
         return tempUrls;
 
     }
+
+
 
 
 

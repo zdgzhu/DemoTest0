@@ -3,6 +3,7 @@ package com.example.network.mina;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.service.IoHandlerAdapter;
@@ -64,6 +65,7 @@ public class ConnectionManager {
             ConnectFuture future = mConnector.connect(mAddress);
             //等待完成连接
             future.awaitUninterruptibly();
+            //获得session
             mSession = future.getSession();
         } catch (Exception e) {
             return false;
@@ -102,8 +104,10 @@ public class ConnectionManager {
             super.sessionCreated(session);
         }
 
+        //从端口接受消息，会响应此方法来对消息进行处理
         @Override
         public void messageReceived(IoSession session, Object message) throws Exception {
+            Log.d("TEST","客户端接收到的信息为:" + message.toString());
             if (mContext != null) {
                 Intent intent = new Intent(BROADCAST_ACTION);
                 intent.putExtra(MESSAGE, message.toString());
@@ -115,6 +119,12 @@ public class ConnectionManager {
         @Override
         public void sessionClosed(IoSession session) throws Exception {
             SessionManager.getInstance().removeSession();
+        }
+
+        @Override
+        public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
+            Log.d("TEST","客户端发生异常");
+            super.exceptionCaught(session, cause);
         }
     }
 
