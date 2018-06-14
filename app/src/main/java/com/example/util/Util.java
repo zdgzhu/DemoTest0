@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.module.recommand.RecommandBodyValue;
 
@@ -75,11 +78,19 @@ public class Util {
     }
 
 
+    public static Uri createQQUrl(String qq) {
+        String result = "mqqwpa://im/chat?chat_type=wpa&uin=".concat(qq);
+        return Uri.parse(result);
+    }
 
 
 
-
-
+    public static void hideSoftInputMethod(Context context, View v) {
+        /* 隐藏软键盘 */
+        InputMethodManager inputMethodManager = (InputMethodManager) context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
 
 
 

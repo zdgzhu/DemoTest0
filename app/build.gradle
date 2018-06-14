@@ -38,4 +38,5 @@ dependencies {
     implementation project(':imoocsdk')
     implementation 'com.youth.banner:banner:1.4.10'
     implementation files('libs/mina-core-2.0.13.jar')
+    implementation files('libs/photoview-library-1.2.2.jar')
 }

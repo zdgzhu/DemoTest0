@@ -38,6 +38,7 @@ public class UpdateManager {
         }
         checkLocalFilePath(localFilePath);
         downloadRequest = new UpdateDownloadRequest(downloadUrl, localFilePath, downloadListener);
+        //这里用的是一个线程池
         Future<?> request = threadPool.submit(downloadRequest);
         new WeakReference<Future<?>>(request);
 

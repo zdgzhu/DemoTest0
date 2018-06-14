@@ -3,6 +3,7 @@ package com.example.service.update;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.example.demotest.R;
 
@@ -22,12 +24,14 @@ import java.io.File;
  */
 
 public class UpdateService extends Service {
+
+    private static final String TAG = "TAG_UpdateService";
     /**
      * 服务器固定地址
      */
     private static final String APK_URL_TITLE = "http://www.imooc.com/mobile/mukewang.apk";
     /**
-     * 文件存放路径
+     * 文件存放路径 apk 下载完成之后，保存的地址
      */
     private String filePath;
     /**
@@ -47,14 +51,57 @@ public class UpdateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.e(TAG, "onStartCommand: " );
         apkUrl = APK_URL_TITLE;
         notifyUser(getString(R.string.update_download_start), getString(R.string.update_download_start), 0);
+        //启动下载器
         startDownload();
         return super.onStartCommand(intent, flags, startId);
     }
 
     private void startDownload() {
+         UpdateManager.getInstance().startDownload(apkUrl, filePath, new UpdateDownloadListener() {
+             @Override
+             public void onStarted() {
 
+             }
+
+             @Override
+             public void onPrepared(long contentLength, String downloadUrl) {
+
+             }
+
+             @Override
+             public void onProgressChanged(int progress, String downloadUrl) {
+                 notifyUser(getString(R.string.update_download_processing),getString(R.string.update_download_processing), progress);
+
+             }
+
+             @Override
+             public void onPaused(int progress, int completeSize, String downloadUrl) {
+                 notifyUser(getString(R.string.update_download_failed),
+                         getString(R.string.update_download_failed_msg), 0);
+                 deleteApkFile();
+                 stopSelf();// 停掉服务自身
+
+             }
+
+             @Override
+             public void onFinished(int completeSize, String downloadUrl) {
+                 notifyUser(getString(R.string.update_download_finish), getString(R.string.update_download_finish),
+                         100);
+                 stopSelf();// 停掉服务自身
+                 startActivity(getInstallApkIntent());
+             }
+
+             @Override
+             public void onFailure() {
+                 notifyUser(getString(R.string.update_download_failed),
+                         getString(R.string.update_download_failed_msg), 0);
+                 deleteApkFile();
+                 stopSelf();// 停掉服务自身
+             }
+         });
 
 
 

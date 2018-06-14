@@ -24,7 +24,16 @@
         </activity>
         <activity android:name="com.example.activity.HomeActivity" />
         <activity android:name="com.example.activity.SettingActivity" />
-        <activity android:name="com.example.activity.LoginActivity"></activity>
+        <activity android:name="com.example.activity.LoginActivity" />
+        <activity android:name="com.example.activity.MessageActivity" />
+        <activity android:name="com.example.activity.PhotoViewActivity" />
+        <activity android:name="com.example.activity.CaptureActivity" />
+        <activity android:name="com.example.activity.SearchActivity" />
+
+        <service android:name="com.example.service.update.UpdateService" />
+        <service android:name="com.example.network.mina.MinaService" />
+
+        <activity android:name="com.example.activity.CourseDetailActivity"></activity>
     </application>
 
 </manifest>

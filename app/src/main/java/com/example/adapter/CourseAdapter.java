@@ -1,6 +1,7 @@
 package com.example.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,8 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.activity.PhotoViewActivity;
 import com.example.adutil.ImageLoaderUtil;
 import com.example.adutil.Utils;
+import com.example.core.video.VideoAdContext;
 import com.example.demotest.R;
 import com.example.module.recommand.RecommandBodyValue;
 import com.example.util.Util;
@@ -37,7 +40,7 @@ public class CourseAdapter extends BaseAdapter {
     //异步图片加载工具
     private ImageLoaderUtil mImagerLoader;
     private ViewHolder mViewHolder;
-
+    private VideoAdContext mAdsdkContext;
 
     public CourseAdapter(Context context, ArrayList<RecommandBodyValue> data) {
         mContext = context;
@@ -158,6 +161,8 @@ public class CourseAdapter extends BaseAdapter {
                 mViewHolder.mZanView.setText(mContext.getString(R.string.dian_zan).concat(value.zan));
                 //为单个ImageView 加载远程图片
                 mImagerLoader.displayImage(mViewHolder.mProductView, value.url.get(0));
+
+
                 break;
 
             case CARD_MULTI_PIC:// 显示多个图片
@@ -171,7 +176,9 @@ public class CourseAdapter extends BaseAdapter {
                 mViewHolder.mProductLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(mContext, mContext.getString(R.string.toast_msg01), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(mContext, PhotoViewActivity.class);
+                        intent.putStringArrayListExtra(PhotoViewActivity.PHOTO_LIST, value.url);
+                        mContext.startActivity(intent);
 
                     }
                 });
@@ -211,6 +218,15 @@ public class CourseAdapter extends BaseAdapter {
         photoView.setLayoutParams(params);
         mImagerLoader.displayImage(photoView, url);
         return photoView;
+
+    }
+
+    //自动播放方法
+    public void updateAdInScrollView() {
+
+        if (mAdsdkContext != null) {
+            mAdsdkContext.updateAdInScrollView();
+        }
 
     }
 
