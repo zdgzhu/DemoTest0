@@ -9,6 +9,7 @@ import com.example.okhttp.CommonOkHttpClient;
 import com.example.okhttp.HttpConstant;
 import com.example.okhttp.listener.DisposeDataHandle;
 import com.example.okhttp.listener.DisposeDataListener;
+import com.example.okhttp.listener.DisposeDownloadListener;
 import com.example.okhttp.request.CommonRequest;
 import com.example.okhttp.request.RequestParams;
 
@@ -44,7 +45,10 @@ public class RequestCenter {
     }
 
 
-
+    public static void downloadFile(String url, String path, DisposeDownloadListener listener) {
+        CommonOkHttpClient.downloadFile(CommonRequest.createGetRequest(url, null),
+                new DisposeDataHandle(listener, path));
+    }
 
 
 

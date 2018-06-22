@@ -2,6 +2,7 @@ package com.example.okhttp;
 
 import com.example.okhttp.https.HttpsUtils;
 import com.example.okhttp.listener.DisposeDataHandle;
+import com.example.okhttp.response.CommonFileCallback;
 import com.example.okhttp.response.CommonJsonCallback;
 
 import java.util.concurrent.TimeUnit;
@@ -93,7 +94,11 @@ public class CommonOkHttpClient  {
     }
 
 
-
+    public static Call downloadFile(Request request, DisposeDataHandle handle) {
+        Call call = mOkHttpClient.newCall(request);
+        call.enqueue(new CommonFileCallback(handle));
+        return call;
+    }
 
 
 

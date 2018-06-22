@@ -8,14 +8,17 @@ import android.view.View;
 import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.adapter.PhotoPagerAdapter;
 import com.example.adutil.Utils;
 import com.example.demotest.R;
+import com.example.share.ShareDialog;
 import com.example.util.Util;
 
 import java.util.ArrayList;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import okhttp3.internal.platform.Platform;
 
 /**
@@ -91,21 +94,45 @@ public class PhotoViewActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.share_view:
-//                ShareDialog dialog = new ShareDialog(this, true);
-//                dialog.setShareType(Platform.SHARE_IMAGE);
-//                dialog.setShareTitle(getString(R.string.imooc));
-//                dialog.setShareTitleUrl(getString(R.string.imooc_site));
-//                dialog.setShareText(getString(R.string.imooc));
-//                dialog.setShareSite(getString(R.string.imooc));
-//                dialog.setShareTitle(getString(R.string.imooc));
-//                dialog.setImagePhoto(mPhotoLists.get(currentPos));
-//                dialog.setUrl(mPhotoLists.get(currentPos));
-//                dialog.setResourceUrl(mPhotoLists.get(currentPos));
-//                dialog.show();
+//                showShare();
+                Toast.makeText(this, "被点击", Toast.LENGTH_SHORT).show();
+                ShareDialog dialog = new ShareDialog(this, true);
+                dialog.setShareType(cn.sharesdk.framework.Platform.SHARE_IMAGE);
+                dialog.setShareTitle(getString(R.string.imooc));
+                dialog.setShareTitleUrl(getString(R.string.imooc_site));
+                dialog.setShareText(getString(R.string.imooc));
+                dialog.setShareSite(getString(R.string.imooc));
+                dialog.setShareTitle(getString(R.string.imooc));
+                dialog.setImagePhoto(mPhotoLists.get(currentPos));
+                dialog.setUrl(mPhotoLists.get(currentPos));
+                dialog.setResourceUrl(mPhotoLists.get(currentPos));
+                dialog.show();
                 break;
         }
-    
-}
+
+    }
+
+    private void showShare() {
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+
+        // title标题，微信、QQ和QQ空间等平台使用
+        oks.setTitle(getString(R.string.share));
+        // titleUrl QQ和QQ空间跳转链接
+        oks.setTitleUrl("http://sharesdk.cn");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("我是分享文本");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        // url在微信、微博，Facebook等平台中使用
+        oks.setUrl("http://sharesdk.cn");
+        // comment是我对这条分享的评论，仅在人人网使用
+        oks.setComment("我是测试评论文本");
+        // 启动分享GUI
+        oks.show(this);
+    }
+
 
 
 

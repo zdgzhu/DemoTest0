@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
@@ -28,10 +29,12 @@ import com.example.module.update.UpdateModel;
 import com.example.network.http.RequestCenter;
 import com.example.okhttp.listener.DisposeDataListener;
 import com.example.service.update.UpdateService;
+import com.example.share.ShareDialog;
 import com.example.util.Util;
 import com.example.view.CommonDialog;
 import com.example.view.fragment.BaseFragment;
 
+import cn.sharesdk.framework.Platform;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -132,7 +135,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         switch (v.getId()) {
             //分享网址
             case R.id.share_imooc_view:
-
+                 shareFirend();
                 break;
 
             case R.id.login_layout:
@@ -184,8 +187,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
      * 分享慕课网给好友
      */
     private void shareFirend() {
-
-
+        ShareDialog dialog = new ShareDialog(mContext,false);
+        dialog.setShareType(Platform.SHARE_IMAGE);
+        dialog.setShareTitle("慕课网");
+        dialog.setShareTitleUrl("http://www.imooc.com");
+        dialog.setShareSite("imooc");
+        dialog.setShareTitleUrl("http://www.imooc.com");
+        dialog.setImagePhoto(Environment.getExternalStorageDirectory()+"/test2.ipg");
+        dialog.show();
     }
 
     //发送版本检查更新的请求

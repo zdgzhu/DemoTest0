@@ -13,8 +13,10 @@ import android.widget.TextView;
 
 import com.example.activity.base.BaseActivity;
 import com.example.demotest.R;
+import com.example.jpush.PushMessageActivity;
 import com.example.manager.DialogManager;
 import com.example.manager.UserManager;
+import com.example.module.PushMessage;
 import com.example.module.user.User;
 import com.example.network.http.RequestCenter;
 import com.example.network.mina.MinaService;
@@ -38,7 +40,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     /**
      * data
      */
-//    private PushManager mPushMessage;//推送过来的消息
+    private PushMessage mPushMessage;//推送过来的消息
     private boolean fromPush; //是否从推送到此页面
 
     @Override
@@ -55,7 +57,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     //主要是推送 PushManager
     private void initData() {
         Intent intent = getIntent();
-//        if ()
+        if (intent.hasExtra("pushMessage")) {
+            mPushMessage = (PushMessage) intent.getSerializableExtra("pushMessage");
+        }
+        fromPush = intent.getBooleanExtra("fromPush", false);
 
 
     }
@@ -135,10 +140,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                  */
                 insertUserInfoIntoDB();
                 if (fromPush) {
-//                    Intent intent = new Intent(LoginActivity.this, PushMessageActivity.class);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    intent.putExtra("pushMessage", mPushMessage);
-//                    startActivity(intent);
+                    Intent intent = new Intent(LoginActivity.this, PushMessageActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("pushMessage", mPushMessage);
+                    startActivity(intent);
                 }
                 finish();//销毁当前登陆页面
             }
